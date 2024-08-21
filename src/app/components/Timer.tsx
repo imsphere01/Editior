@@ -1,8 +1,10 @@
-'use client'
+'use client';
 import { useState, useEffect } from 'react';
+import { FaPlay } from 'react-icons/fa';
+import { IoMdAdd } from 'react-icons/io';
 
 const Timer: React.FC = () => {
-  const [seconds, setSeconds] = useState<number>(1500); 
+  const [seconds, setSeconds] = useState<number>(1500);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
@@ -29,30 +31,33 @@ const Timer: React.FC = () => {
   };
 
   return (
-<div className="text-center py-5  relative z-10">
-
-
-
-    <div className="px-10 flex justify-between">
+    <div className="text-center relative rounded-xl bg-gray-900">
+      <div className="text-[10rem] text-[#F7EEE3]">
+        {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? '0' : ''}${
+          seconds % 60
+        }`}
+      </div>
+      <div className="px-10 flex justify-center">
         <button
           className=" text-[#F7EEE3] text-[1.5rem] p-2 rounded mr-2 hover: decoration-solid "
           onClick={toggle}
         >
-          {isActive ? 'Pause' : 'Play'}
+          <div className="p-3 rounded-full bg-white text-orange-600">
+            <FaPlay size={20} />
+          </div>
+          {/* {isActive ? 'Pause' : 'Play'} */}
         </button>
-        <button className=" text-[#F7EEE3] text-[1.5rem] p-2 rounded" onClick={reset}>
-          Reset
+        <button
+          className="text-[#F7EEE3] text-[1.5rem] p-2 rounded"
+          onClick={reset}
+        >
+          <div className="p-2 rounded-full text-white bg-orange-600">
+            <IoMdAdd size={30} />
+          </div>
+          {/* Reset */}
         </button>
-
+      </div>
     </div>
-
-      <div className="text-[10rem] text-[#F7EEE3] p-3">
-        {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? '0' : ''}${seconds % 60}`}
-    </div>
-
-
-
-</div>
   );
 };
 
