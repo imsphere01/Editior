@@ -1,28 +1,15 @@
+'use client';
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import Folder from './Folder';
 import { IoClose } from 'react-icons/io5';
 import { FiUpload } from 'react-icons/fi';
-import { NotesCon } from '../providers/NotesProvider';
+import Pdf from './Pdf';
 import { useRouter } from 'next/navigation';
+import { NotesCon } from '../providers/NotesProvider';
+import Notes from './Notes';
 
-const FOLDERS = [
-  {
-    name: 'CS',
-  },
-  {
-    name: 'IT',
-  },
-  {
-    name: 'Math',
-  },
-  {
-    name: 'Desgin',
-  },
-  {
-    name: 'Lab',
-  },
-];
+// const FOLDERS = ;
 
 type SetActiveSelectionType = (value: boolean) => void;
 
@@ -37,10 +24,9 @@ const NewFile = ({
   const handlePush = () => {
     router.push('/textEditor');
   };
-
   return (
-    <div className="flex items-center z-50 justify-center w-full h-full absolute top-0 left-0">
-      <div className="absolute mt-10 z-50 p-4 border-[1px] border-slate-100 rounded-xl">
+    <div className="flex items-center justify-center w-full h-full  absolute top-0 left-0">
+      <div className="absolute w-5/6 h-5/6 z-10 p-4 border-[1px] border-slate-100 rounded-xl">
         <div className="w-full h-full backdrop-blur-xl p-4 rounded-xl bg-[rgba(0,0,0,0.6)]">
           <button
             className="absolute top-0 right-0"
@@ -79,12 +65,39 @@ const NewFile = ({
   );
 };
 
-const StorageContainer = () => {
+const FileContainer = () => {
+  const [files, setFiles] = useState([
+    {
+      name: 'CS',
+      type: 'pdf',
+    },
+    {
+      name: 'IT',
+      type: 'pdf',
+    },
+    {
+      name: 'Math',
+      type: 'pdf',
+    },
+    {
+      name: 'Desgin',
+      type: 'pdf',
+    },
+    {
+      name: 'Lab',
+      type: 'pdf',
+    },
+    {
+      name: 'notes1',
+      type: 'notes',
+    },
+  ]);
+
   const [activeSelection, setActiveSelection] = useState(false);
   return (
     <div className="flex flex-col gap-8 w-full">
       <div className="flex justify-between text-2xl">
-        <p className="">Folders</p>
+        <p className="">Notes</p>
         <button
           onClick={() => setActiveSelection(true)}
           className="px-3 py-2 rounded-lg bg-orange-600 text-white"
@@ -94,12 +107,16 @@ const StorageContainer = () => {
       </div>
       {activeSelection && <NewFile setActiveSelection={setActiveSelection} />}
       <div className="folderContainer grid grid-rows-1 overflow-x-scroll scroll-smooth grid-flow-col justify-between w-full">
-        {FOLDERS.map((item, index) => (
-          <Folder folderName={item.name} key={index} />
-        ))}
+        {files.map((item, index) => {
+          return item.type === 'pdf' ? (
+            <Pdf fileName={item.name} key={index} />
+          ) : (
+            <Notes fileName={item.name} key={index} />
+          );
+        })}
       </div>
     </div>
   );
 };
 
-export default StorageContainer;
+export default FileContainer;

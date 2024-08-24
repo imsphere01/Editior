@@ -31,7 +31,7 @@ const Timer: React.FC = () => {
   };
 
   return (
-    <div className="text-center relative rounded-xl bg-gray-900">
+    <div className="text-center relative rounded-xl border-[1px] border-[#f7eee3]">
       <div className="text-[10rem] text-[#F7EEE3]">
         {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? '0' : ''}${
           seconds % 60

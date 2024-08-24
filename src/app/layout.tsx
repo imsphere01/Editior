@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import './globals.css';
+import NotesProvider from './providers/NotesProvider';
 
 export const metadata: Metadata = {
   title: 'Note',
@@ -17,7 +18,7 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} flex flex-col items-center justify-center lg:w-7xl`}
       >
-        {children}
+        <NotesProvider>{children}</NotesProvider>
       </body>
     </html>
   );
